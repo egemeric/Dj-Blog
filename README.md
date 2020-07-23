@@ -22,7 +22,7 @@ $ ALTER ROLE admin_dj SET default_transaction_isolation TO 'read committed';
 $ ALTER ROLE admin_dj SET timezone TO 'UTC';
 $ GRANT ALL PRIVILEGES ON DATABASE dj TO admin_dj;
 ```
-You Can change your Postgres admin and user settings  under python/Blog/Blog/seetings.py 
+You Can change your custom Postgres admin and user settings  under python/Blog/Blog/seetings.py 
 ```sh
 
 DATABASES = {
@@ -30,7 +30,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dj',
         'USER': 'admin_dj',
-        'PASSWORD': 'password',
+        'PASSWORD': 'test1234.',
         'HOST': '127.0.0.1',
         'PORT': '',
     }
