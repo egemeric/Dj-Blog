@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    body{ background: rgba(102, 51, 0, 0.3);
+    }
+    </style>
+</head>
+<body>
+{% if cmt %}
+    <b>{{cmt.Title}}</b>
+    <p>{{cmt.Pub_date}}</p>
+    <hr>
+    <b><p>{{cmt.Content}}</p></b>
+    <img src="{{cmt.Image.url}}">
+<p>{% autoescape off %}{{cmt.cmt_all}}{% endautoescape %}</p>
+{% else %}
+    <b>not found</b>
+{%endif%}
+<hr>
+<a href="/accounts/login/">login</a>
+</body>
+</html>

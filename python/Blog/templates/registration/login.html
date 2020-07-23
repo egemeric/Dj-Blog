@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/media/css/bootstrap.min.css">
+    <script src="/media/js/jquery.min.js"></script>
+    <script src="/media/js/bootstrap.min.js"></script>
+  <style>
+          body{
+                  background: rgba(102, 51, 0, 0.3);}
+
+          .center {
+                  margin: auto;
+                  width: 60%;
+                  border: 3px solid #73AD21;
+                  padding: 10px;}
+  </style>
+</head>
+<body>
+
+{% block content %}
+{% load static %}
+
+  {% if form.errors %}
+    <p>try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+<div class="container login-container">
+  <div class="row">
+  <div class="col-md-6 login-form-1">
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="Login"  />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+  </div>
+</div>
+</div>
+<hr>
+
+{% endblock %}
+</body>
+</html>

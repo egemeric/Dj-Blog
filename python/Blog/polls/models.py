@@ -1,0 +1,27 @@
+from django.db import models
+from django.utils import timezone
+import datetime
+# Create your models here.
+
+
+class Comment(models.Model):
+    Title = models.CharField(max_length=200)
+    Pub_date = models.DateTimeField('date published', auto_now_add=True)
+    Emb_html = models.CharField(max_length=2024, default='None')
+    Content = models.TextField(default='None')
+    File= models.FileField(upload_to='media/uploads/', default='media/uploads/')
+    Image = models.ImageField(upload_to='media/pic_folder', default='media/None/no-img.jpg')
+
+    def image_tag(self):
+        return mark_safe('<img src="/polls/pic_folder/%s" width="150" height="150" />' % (self.image))
+
+    image_tag.short_description = 'Image'
+
+    def __str__(self):
+        return self.Title
+
+    def was_published_recently(self):
+        return self.Pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+
+

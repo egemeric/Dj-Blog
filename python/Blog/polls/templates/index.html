@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/media/css/bootstrap.min.css">
+    <script src="/media/js/jquery.min.js"></script>
+    <script src="/media/js/bootstrap.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+    <title>Blog</title>
+    <style> body{ background: rgba(102, 51, 0, 0.3);}
+            div.Absolute{
+                position: absolute;
+                width: 50%;
+                bottom: 10px;
+                border: 1px solid #8AC007;}
+           div.Box{
+                border: 1px solid;
+                padding: 15px;
+                box-shadow: 5px 5px #888888;}
+           div.Newpostbox{
+               border: 1px solid;
+               padding: 10px;
+               ;
+           }
+   </style>
+</head>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Myblog</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/">Home</a></li>
+
+      <li><a href="#">About</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+            <li><a href="/accounts/logout/"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+            <li><a href="/pools/create_post_panel/">Create New Post</a></li>
+        {%else%}
+            <li><a href="/accounts/login/"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+        {%endif%}
+    </ul>
+  </div>
+</nav>
+{% if latest_cmt_list %}
+    <ul>
+    {% for comment in latest_cmt_list %}
+        <div class="Box">
+        <li><a href="/pools/get/{{ comment.id }}">{{ comment.Title }}</a></li>
+
+        <p>{{comment.Pub_date}}</p>
+        </div>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+<hr>
+<p>User:{{request.user}}</p>
+<p></p>
+</body>
+</html>
