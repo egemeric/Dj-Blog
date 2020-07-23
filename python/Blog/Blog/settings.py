@@ -25,7 +25,7 @@ SECRET_KEY = 'q7-ojq9hhwq1gklj0ay=v&f=1(#z_iv8q(59z_xmmqp#15s$fl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['egemeric2.ddns.net','localhost']
+ALLOWED_HOSTS = ['egemeric2.ddns.net','localhost','127.0.0.1','192.168.100.139','10.8.3.150']
 
 
 # Application definition
@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dj',
-        'USER': 'admin',
-        'PASSWORD': '',
+        'USER': 'admin_dj',
+        'PASSWORD': 'test1234.',
         'HOST' : '127.0.0.1',
         'PORT' : '',
     }
