@@ -1,4 +1,4 @@
-#!/home/egemeric/intern/python/env/bin/python
+#!/root/Dj-Blog/python/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

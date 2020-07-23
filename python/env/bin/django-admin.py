@@ -1,4 +1,4 @@
-#!/home/egemeric/intern/python/env/bin/python
+#!/root/Dj-Blog/python/env/bin/python3
 from django.core import management
 
 if __name__ == "__main__":
