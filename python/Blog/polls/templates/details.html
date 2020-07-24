@@ -52,13 +52,10 @@
 {%endif%}
 <hr>
 {% if auth_user%}
-<form action="/pools/post_dt/" method="post">{% csrf_token %}
-    <label for="Enter id">id</label>
-    <input id="post_id" type="number" name="post_id" value="{{cmt.id}}">
-    <input id="update_post" type="text" name="update_post" value="{{cmt.Content}}">
-    <input type="submit" value="Seç">
 
-</form>
+<a href="/pools/get/{{cmt.id}}/edit" class="btn btn-success">Edit this Post</a>
+<hr>
+
 <a href="/accounts/logout/">logout</a>
 {%else%}
     <a href="/accounts/login/">Login to edit </a>

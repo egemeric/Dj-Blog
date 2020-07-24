@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
+from django.utils import timezone
 from .models import Comment
 from .forms import CommentForm
+from django import forms
 
 
 def index(request):
@@ -65,3 +67,15 @@ def create_new_post_panel(request):
     return render(request, 'create.html', {'form': form})
 
 
+def edit_full_post(request, content_id):
+    cmt = Comment.objects.get(pk=int(content_id))
+    if request.method == 'POST':
+            form=CommentForm(request.POST, request.FILES, instance=cmt)
+            if form.is_valid():
+                cmt = form.save(commit=False)
+                cmt.Pub_date = timezone.now()
+                cmt.save()
+                return redirect('/pools/get/'+str(cmt.id))
+    else:
+        form=CommentForm(instance=cmt)
+        return render(request,'edit_post.html', {'form': form, 'cmt': cmt})

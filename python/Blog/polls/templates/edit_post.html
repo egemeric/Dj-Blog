@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edit_post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/media/css/bootstrap.min.css">
+    <script src="/media/js/jquery.min.js"></script>
+    <script src="/media/js/bootstrap.min.js"></script>
+    <style>
+        body{ background: rgba(102, 51, 0, 0.3);}
+    </style>
+
+</head>
+<body>
+<div class="jumbotron text-center">
+  <h1>Edit the Post</h1>
+  <p>You can edit Post</p>
+</div>
+<div class="col-md-4 col-md-offset-4">
+    <form action="/pools/get/{{cmt.id}}/edit/" method="post" id="edit_post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p><label for="id_Title">Title:</label> <input type="text" name="Title" value="{{cmt.Title}}" maxlength="200" required="" id="id_Title"></p>
+        <p><label for="id_Emb_html">Emb html:</label> <input type="text" name="Emb_html" value="{{cmt.Emb_html}}" maxlength="2024" required="" id="id_Emb_html"></p>
+        <p><label for="id_Content">Content:</label> <textarea name="Content" cols="40" rows="10" required="" id="id_Content">{{cmt.Content}}</textarea></p>
+        <p><label for="id_File">File:</label> <input type="file" name="File" id="id_File"> Old File:<a href="{{cmt.File.url}}">{{cmt.File.url}}</a></p>
+        <p><label for="id_Image">Image:</label> <input type="file" name="Image" accept="image/*" id="id_Image">Old Image:<a href="{{cmt.Image.url}}">{{cmt.Image.url}}</a> </p>
+        <input type="submit" send="" class="btn btn-success" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>
