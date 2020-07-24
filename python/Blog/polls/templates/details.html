@@ -9,10 +9,25 @@
     <script src="/media/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <style>
-        body{ background: rgba(102, 51, 0, 0.3);}
+        body{
+            background: rgba(102, 51, 0, 0.3);
+            }
+        img {
+            max-width: 100%;
+            height: auto;
+            }
+        .header {
+            border: 1px solid black;
+            padding: 15px;
+            text-align: center;
+            }
+        .content{
+            border: 1px solid black;
+            padding: 25px;
+            }
     </style>
 </head>
-<body>
+<i>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -34,19 +49,21 @@
   </div>
 </nav>
 {% if cmt %}
-    <b>{{cmt.Title}}</b>
-    <p>{{cmt.Pub_date}}</p>
-    <hr>
-    <b><p>{{cmt.Content}}</p></b>
-    {% block content %}
-    {%if cmt.Image == 'media/None/no-img.jpg'%}
-    <img src="{{cmt.Image.url}}" width="50" height="25" alt="{{cmt.Image}}">
-    {%else%}
-    <img src="{{cmt.Image.url}}" width="640" height="360" alt="{{cmt.Image}}">
+    <div class="header">
+        <b>{{cmt.Title}}</b>
+        <p>{{cmt.Pub_date}}</p>
+    </div>
+    <div class="content">
+        <i><p>{{cmt.Content}}</p></i>
+        {% block content %}
+        {%if cmt.Image == 'media/None/no-img.jpg'%}
+            <img src="{{cmt.Image.url}}" width="50" height="25" alt="{{cmt.Image}}">
+        {%else%}
+            <img src="{{cmt.Image.url}}" width="640" height="360" alt="{{cmt.Image}}">
+    </div>
     {%endif%}
     {% endblock %}
-
-<p>{% autoescape off %}{{cmt.Emb_html}}{% endautoescape %}</p>
+    <p>{% autoescape off %}{{cmt.Emb_html}}{% endautoescape %}</p>
 {%else%}
     <b>not found</b>
 {%endif%}
