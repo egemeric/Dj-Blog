@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from .models import Comment
 from .forms import CommentForm
@@ -51,7 +51,11 @@ def create_new_post(request):
             form = CommentForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                return render(request, 'create.html')
+                return redirect('/')
+            else:
+                return HttpResponse('Form is not valid')
+        else:
+            return HttpResponse('Http Method ERROR')
     else:
         return HttpResponse('Unauthorized', status=401)
 
