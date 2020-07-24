@@ -12,7 +12,7 @@ $ pip install -r Dj-Blog/requirements.txt
 If you dont want work on virt env just intall django and postgres connector via pip
 ```sh
 $ pip install --upgrade pip
-$ pip install -r Dj-Blog/requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ### Install Database Pstgresql 
