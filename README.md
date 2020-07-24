@@ -1,11 +1,20 @@
 # Dj-Blog
 A Mini blog with Python Django Framework
-### Creating Virtual Environment for flexibility
+### Creating Virtual Environment 
 ```sh
-$ apt install python-virtualenv python-pip python-dev 
-$ source Dj-Blog/python/venv_django/bin/activate
-$ pip install Dj-Blog/requirements.txt
+$ sudo apt install python-virtualenv
+$ cd Dj-Blog/python
+$ python3 -m venv dj_venv
+$ source dj_venv/bin/activate
+$ pip install --upgrade pip
+$ pip install -r Dj-Blog/requirements.txt
 ```
+If you dont want work on virt env just intall django and postgres connector via pip
+```sh
+$ pip install --upgrade pip
+$ pip install -r Dj-Blog/requirements.txt
+```
+
 ### Install Database Pstgresql 
 
 ```sh
