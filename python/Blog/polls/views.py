@@ -59,7 +59,7 @@ def create_new_post(request):
         else:
             return HttpResponse('Http Method ERROR')
     else:
-        return HttpResponse('Unauthorized', status=401)
+        return HttpResponse('Unauthorized, Yetkin yok :D', status=401)
 
 
 def create_new_post_panel(request):
@@ -68,14 +68,16 @@ def create_new_post_panel(request):
 
 
 def edit_full_post(request, content_id):
+    if not request.user.is_authenticated:
+        return HttpResponse('Unauthorized, Yetkin Yok :D', status=401)
     cmt = Comment.objects.get(pk=int(content_id))
     if request.method == 'POST':
-            form=CommentForm(request.POST, request.FILES, instance=cmt)
-            if form.is_valid():
-                cmt = form.save(commit=False)
-                cmt.Pub_date = timezone.now()
-                cmt.save()
-                return redirect('/pools/get/'+str(cmt.id))
+        form=CommentForm(request.POST, request.FILES, instance=cmt)
+        if form.is_valid():
+            cmt = form.save(commit=False)
+            cmt.Pub_date = timezone.now()
+            cmt.save()
+            return redirect('/pools/get/'+str(cmt.id))
     else:
         form=CommentForm(instance=cmt)
         return render(request,'edit_post.html', {'form': form, 'cmt': cmt})
