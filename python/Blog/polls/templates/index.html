@@ -21,9 +21,10 @@
                 box-shadow: 5px 5px #888888;}
            div.Newpostbox{
                border: 1px solid;
-               padding: 10px;
-               ;
-           }
+               padding: 10px;}
+               .ortala {
+               margin-left: 10%;
+               margin-right:10%;}
    </style>
 </head>
 <nav class="navbar navbar-inverse">
@@ -60,7 +61,16 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
-
+<hr>
+<div class="ortala">
+    {% block content %}
+    {% if not current_page == 0 %}
+    <a href="/{{current_page | add:'-1'}}"> << </a>
+    {%endif%}
+    {{next_page}}of page{{page_count}}
+    <a href="/{{next_page}}"> >> </a>
+    {% endblock %}
+</div>
 <hr>
 <p>User:{{request.user}}</p>
 <p></p>

@@ -5,12 +5,15 @@ from .models import Comment
 from .forms import CommentForm
 from django import forms
 
+item_ct=Comment.objects.count()
 
-def index(request):
-    latest_comment_list = Comment.objects.order_by('-Pub_date')[:]
-    context = {'latest_cmt_list': latest_comment_list, 'request': request}
+def index(request, req_page=0):
+    page_count = int(item_ct / 5)
+    latest_comment_list = Comment.objects.order_by('-Pub_date')[req_page*5:(req_page*5)+5]
+    context = {'latest_cmt_list': latest_comment_list, 'request': request, 'page_count': page_count+1, 'current_page': req_page, 'next_page': req_page+1}
     print(request.headers)
     print(request.user)
+    print(request.GET.getlist)
     return render(request, 'index.html', context)
 
 
@@ -56,6 +59,7 @@ def create_new_post(request):
                 form.Ip_log = request.META['REMOTE_ADDR']
                 form.User_agent = request.META['HTTP_USER_AGENT']
                 form.save()
+                item_ct=Comment.objects.count()
                 return redirect('/')
             else:
                 return HttpResponse('Form is not valid')

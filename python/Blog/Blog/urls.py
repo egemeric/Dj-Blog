@@ -24,6 +24,7 @@ urlpatterns = [
     path('pools/', include('polls.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('',views.index),
+    path('<int:req_page>/', views.index),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
