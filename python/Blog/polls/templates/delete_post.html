@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete_post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/media/css/bootstrap.min.css">
+    <script src="/media/js/jquery.min.js"></script>
+    <script src="/media/js/bootstrap.min.js"></script>
+    <style>
+        body{ background: rgba(102, 51, 0, 0.3);}
+    </style>
+</head>
+<body>
+<div class="jumbotron text-center">
+  <h1>DELETE POST</h1>
+  <p>Are you sure?</p>
+</div>
+<div class="col-md-4 col-md-offset-4">
+    <form action="/pools/get/{{cmt.id}}/delete/" method="post" id="delete_post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p><label for="ask_yes">Type yes to delete:</label> <input type="text" name="ask_yes" value="" maxlength="200" required="" id="ask_yes"></p>
+        <input type="submit" send="" class="btn btn-success" value="Submit">
+    </form>
+</div>
+</body>
+</html>

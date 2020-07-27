@@ -7,10 +7,12 @@ import datetime
 class Comment(models.Model):
     Title = models.CharField(max_length=200)
     Pub_date = models.DateTimeField('date published', auto_now_add=True)
-    Emb_html = models.CharField(max_length=2024, default='None')
-    Content = models.TextField(default='None')
-    File= models.FileField(upload_to='media/uploads/', default='media/uploads/')
+    Emb_html = models.CharField(max_length=2024, null=True, blank=True)
+    Content = models.TextField(default='Empty')
+    File = models.FileField(upload_to='media/uploads/', default='media/None/', null=True, blank=True)
     Image = models.ImageField(upload_to='media/pic_folder', default='media/None/no-img.jpg')
+    Ip_log = models.GenericIPAddressField(null=True)
+    User_agent = models.CharField(max_length=200,null=True)
 
     def image_tag(self):
         return mark_safe('<img src="/polls/pic_folder/%s" width="150" height="150" />' % (self.image))

@@ -52,6 +52,9 @@ def create_new_post(request):
         if request.method == 'POST':
             form = CommentForm(request.POST, request.FILES)
             if form.is_valid():
+                form=form.save(commit=False)
+                form.Ip_log = request.META['REMOTE_ADDR']
+                form.User_agent = request.META['HTTP_USER_AGENT']
                 form.save()
                 return redirect('/')
             else:
@@ -76,8 +79,27 @@ def edit_full_post(request, content_id):
         if form.is_valid():
             cmt = form.save(commit=False)
             cmt.Pub_date = timezone.now()
+            cmt.Ip_log = request.META['REMOTE_ADDR']
+            cmt.User_agent = request.META['HTTP_USER_AGENT']
             cmt.save()
             return redirect('/pools/get/'+str(cmt.id))
     else:
         form=CommentForm(instance=cmt)
         return render(request,'edit_post.html', {'form': form, 'cmt': cmt})
+
+
+def delete_post(request,content_id):
+    if not request.user.is_authenticated:
+        return HttpResponse('Unauthorized, Yetkin Yok :D', status=401)
+    cmt = Comment.objects.get(pk=content_id)
+    if request.method == 'GET':
+        return render(request, 'delete_post.html', {'cmt': cmt})
+    elif request.method == 'POST':
+        check_again = request.POST.get('ask_yes')
+        if check_again == str(check_again).lower() == 'yes':
+            cmt.delete()
+            return redirect('/')
+    else:
+        return HttpResponse('Http method error')
+
+

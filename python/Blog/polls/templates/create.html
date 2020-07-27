@@ -20,11 +20,7 @@
 <div class="col-md-4 col-md-offset-4">
     <form action="/pools/create_post/" method="post" id="create_post" enctype="multipart/form-data">
         {% csrf_token %}
-        <p><label for="id_Title">Title:</label> <input type="text" name="Title" maxlength="200" required="" id="id_Title"></p>
-        <p><label for="id_Emb_html">Emb html:</label> <input type="text" name="Emb_html" value="None" maxlength="2024" required="" id="id_Emb_html"></p>
-        <p><label for="id_Content">Content:</label> <textarea name="Content" cols="40" rows="10" required="" id="id_Content">None</textarea></p>
-        <p><label for="id_File">File:</label> <input type="file" name="File" id="id_File"></p>
-        <p><label for="id_Image">Image:</label> <input type="file" name="Image" accept="image/*" id="id_Image"></p>
+        {{form.as_p}}
         <input type="submit" send="" class="btn btn-success" value="Submit">
     </form>
 </div>
