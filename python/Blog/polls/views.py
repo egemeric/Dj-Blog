@@ -1,19 +1,30 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.utils import timezone
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from .models import Comment
 from .forms import CommentForm
-from django import forms
+from .serializers import CommetSerializer
 
-item_ct=Comment.objects.count()
-
+class CommentAPI(APIView):
+    def get(self, request):
+        cmt=Comment.objects.all()
+        serializer=CommetSerializer(cmt, many=True)
+        return Response(serializer.data)
+    def post(self):
+        pass
 def index(request, req_page=0):
+    item_ct=Comment.objects.count()
     page_count = int(item_ct / 5)
     latest_comment_list = Comment.objects.order_by('-Pub_date')[req_page*5:(req_page*5)+5]
-    context = {'latest_cmt_list': latest_comment_list, 'request': request, 'page_count': page_count+1, 'current_page': req_page, 'next_page': req_page+1}
-    print(request.headers)
-    print(request.user)
-    print(request.GET.getlist)
+    context = {'latest_cmt_list': latest_comment_list,
+               'request': request,
+               'page_count': page_count+1,
+               'current_page': req_page,
+               'next_page': req_page+1,
+               }
     return render(request, 'index.html', context)
 
 
@@ -38,7 +49,7 @@ def update_post(request):
             post_id = request.POST.get('post_id')
             post_data = request.POST.get('update_post')
             try:
-                cmt = Comment. objects.get(pk=int(post_id))
+                cmt = Comment.objects.get(pk=int(post_id))
                 cmt.Content = post_data
                 cmt.save(update_fields=['Content'])
                 context={'cmt': cmt.id}
@@ -87,6 +98,8 @@ def edit_full_post(request, content_id):
             cmt.User_agent = request.META['HTTP_USER_AGENT']
             cmt.save()
             return redirect('/pools/get/'+str(cmt.id))
+        else:
+            return HttpResponse("Form is not valid!")
     else:
         form=CommentForm(instance=cmt)
         return render(request,'edit_post.html', {'form': form, 'cmt': cmt})
@@ -103,6 +116,8 @@ def delete_post(request,content_id):
         if check_again == str(check_again).lower() == 'yes':
             cmt.delete()
             return redirect('/')
+        else:
+            return HttpResponse("Please write yes to delete!")
     else:
         return HttpResponse('Http method error')
 
