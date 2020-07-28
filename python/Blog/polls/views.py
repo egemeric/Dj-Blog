@@ -1,20 +1,20 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.utils import timezone
-from rest_framework.views import APIView
+from rest_framework import routers, serializers, viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Comment
 from .forms import CommentForm
 from .serializers import CommetSerializer
 
-class CommentAPI(APIView):
-    def get(self, request):
-        cmt=Comment.objects.all()
-        serializer=CommetSerializer(cmt, many=True)
-        return Response(serializer.data)
-    def post(self):
-        pass
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommetSerializer
+
+
+
 def index(request, req_page=0):
     item_ct=Comment.objects.count()
     page_count = int(item_ct / 5)
