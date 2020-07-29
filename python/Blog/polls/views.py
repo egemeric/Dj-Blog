@@ -1,14 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404, JsonResponse
+from django.http import HttpResponse, Http404
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework import routers, serializers, viewsets
-from rest_framework.parsers import JSONParser
-from rest_framework.response import Response
-from rest_framework import status
 from .models import Comment
 from .forms import CommentForm
-from .serializers import CommetSerializer
 import datetime
 
 

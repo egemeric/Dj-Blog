@@ -4,10 +4,10 @@ from rest_framework import viewsets
 from .models import Comment
 
 
-class CommetSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model=Comment
-        fields=('id', 'Title', 'Pub_date', 'Content', 'Image')
+        fields=('Owner', 'id', 'Title', 'Pub_date', 'Content', 'Image')
 
 
 
