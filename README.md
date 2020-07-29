@@ -58,6 +58,6 @@ Finally run the server for all interfaces
 ```sh
 $ python Dj-Blog/python/Blog/manage.py runserver 0.0.0.0:8000
 ```
-
+[Style and About the Dj-Blog](https://github.com/egemeric/Dj-Blog/blob/master/python/README.md)
 
 
