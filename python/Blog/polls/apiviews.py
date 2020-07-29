@@ -29,15 +29,15 @@ class CommentList(APIView):
 class CommentDetail(APIView):
     def get_object(self, pk):
         try:
-            return Comment.objects(pk=pk)
+            return Comment.objects.get(pk=pk)
         except Comment.DoesNotExist:
             raise Http404
 
-    def get(self, request, format=None):
+    def get(self, request, pk, format=None):
         cmt = self.get_object(pk)
         serializer = CommetSerializer(cmt)
         return Response(serializer.data)
-    def put(self, request, format=None):
+    def put(self, request, pk, format=None):
         cmt = self.get_object(pk)
         serializer = CommetSerializer(cmt, data=request.data)
         if serializer.is_valid():
