@@ -1,22 +1,20 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import routers, serializers, viewsets
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Comment
 from .forms import CommentForm
 from .serializers import CommetSerializer
-
-
-class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = CommetSerializer
-
+import datetime
 
 
 def index(request, req_page=0):
-    item_ct=Comment.objects.count()
+    dt=datetime.datetime.now()
+    item_ct = Comment.objects.count()
     page_count = int(item_ct / 5)
     latest_comment_list = Comment.objects.order_by('-Pub_date')[req_page*5:(req_page*5)+5]
     context = {'latest_cmt_list': latest_comment_list,
@@ -25,6 +23,9 @@ def index(request, req_page=0):
                'current_page': req_page,
                'next_page': req_page+1,
                }
+    dt2=datetime.datetime.now()
+    print(dt2-dt)
+    print(datetime.datetime.now())
     return render(request, 'index.html', context)
 
 
@@ -67,6 +68,7 @@ def create_new_post(request):
             form = CommentForm(request.POST, request.FILES)
             if form.is_valid():
                 form=form.save(commit=False)
+                form.Owner = request.user
                 form.Ip_log = request.META['REMOTE_ADDR']
                 form.User_agent = request.META['HTTP_USER_AGENT']
                 form.save()

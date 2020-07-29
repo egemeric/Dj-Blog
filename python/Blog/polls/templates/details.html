@@ -54,7 +54,7 @@
         <p>{{cmt.Pub_date}}</p>
     </div>
     <div class="content">
-        <i><p>{{cmt.Content}}</p></i>
+        <i><p>{% autoescape off %}{{cmt.Content}}{% endautoescape %}</p></i>
         {% block content %}
         {%if cmt.Image == 'media/None/no-img.jpg'%}
             <img src="{{cmt.Image.url}}" width="50" height="25" alt="{{cmt.Image}}">

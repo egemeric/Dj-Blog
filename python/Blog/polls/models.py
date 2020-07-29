@@ -5,7 +5,7 @@ import datetime
 
 
 class Comment(models.Model):
-    # Comment_ID = models.AutoField(primary_key=True, editable=False)
+    Owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)
     Title = models.CharField(max_length=200)
     Pub_date = models.DateTimeField('date published', auto_now_add=True)
     Emb_html = models.CharField(max_length=2024, null=True, blank=True)

@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from .models import Comment
 
 
-class CommetSerializer(serializers.HyperlinkedModelSerializer):
+class CommetSerializer(serializers.ModelSerializer):
     class Meta:
         model=Comment
         fields=('id', 'Title', 'Pub_date', 'Content', 'Image')
