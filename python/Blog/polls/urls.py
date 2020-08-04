@@ -16,5 +16,10 @@ urlpatterns = [
     path('get/<int:content_id>/delete/', views.delete_post, name='delete_post'),
     path('api/', apiviews.CommentList.as_view(), name='comment_list'),
     path('api/get/<int:pk>', apiviews.CommentDetail.as_view(), name='comment_detail'),
+    path('users/', apiviews.UserList.as_view()),
+    path('users/<int:pk>/', apiviews.UserDetail.as_view()),
     ]
 urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls')),
+]

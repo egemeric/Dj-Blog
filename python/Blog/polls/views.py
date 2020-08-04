@@ -116,5 +116,3 @@ def delete_post(request,content_id):
             return HttpResponse("Please write yes to delete!")
     else:
         return HttpResponse('Http method error')
-
-

@@ -1,16 +1,32 @@
 
 from django.http import HttpResponse, Http404, JsonResponse
 from django.utils import timezone
+from django.contrib.auth.models import User
+from rest_framework import permissions
+from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Comment
-from .serializers import CommentSerializer
+from .permissions import IsOwnerOrReadOnly
+from .serializers import CommentSerializer, UserSerializer
 from rest_framework.decorators import api_view
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class CommentList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
     def get(self, request, format=None):
         cmt = Comment.objects.all()
@@ -26,7 +42,8 @@ class CommentList(APIView):
 
 
 class CommentDetail(APIView):
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly]
     def get_object(self, pk):
         try:
             return Comment.objects.get(pk=pk)
@@ -50,4 +67,5 @@ class CommentDetail(APIView):
         cmt=self.get_object(pk)
         cmt.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
 
