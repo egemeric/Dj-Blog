@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/get/<int:pk>', apiviews.CommentDetail.as_view(), name='comment_detail'),
     path('users/', apiviews.UserList.as_view()),
     path('users/<int:pk>/', apiviews.UserDetail.as_view()),
+    path('upload/',apiviews.Upload_File.as_view()),
     ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 urlpatterns += [

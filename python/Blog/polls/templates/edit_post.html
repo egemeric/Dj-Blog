@@ -24,7 +24,7 @@
         <p><label for="id_Title">Title:</label> <input type="text" name="Title" value="{{cmt.Title}}" maxlength="200" required="" id="id_Title"></p>
         <p><label for="id_Emb_html">Emb html:</label> <input type="text" name="Emb_html" value="{{cmt.Emb_html}}" maxlength="2024" required="" id="id_Emb_html"></p>
         <p><label for="id_Content">Content:</label> <textarea name="Content" cols="40" rows="10" required="" id="id_Content">{{cmt.Content}}</textarea></p>
-        <p><label for="id_File">File:</label> <input type="file" name="File" id="id_File"> Old File:<a href="{{cmt.File.url}}">{{cmt.File.url}}</a></p>
+        <p><label for="id_File">File:</label> <input type="file" name="File" id="id_File"> Old File:<a href="{{file}}">{{file}}</a></p>
         <p><label for="id_Image">Image:</label> <input type="file" name="Image" accept="image/*" id="id_Image">Old Image:<a href="{{cmt.Image.url}}">{{cmt.Image.url}}</a> </p>
         <input type="submit" send="" class="btn btn-success" value="Submit">
     </form>

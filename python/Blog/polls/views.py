@@ -98,7 +98,12 @@ def edit_full_post(request, content_id):
             return HttpResponse("Form is not valid!")
     else:
         form=CommentForm(instance=cmt)
-        return render(request,'edit_post.html', {'form': form, 'cmt': cmt})
+        if cmt.File:
+            print("file var")
+            file_url=cmt.File.url
+            return render(request,'edit_post.html', {'form': form, 'cmt': cmt, 'file': file_url})
+        else:
+            return render(request,'edit_post.html', {'form': form, 'cmt': cmt, 'file': '#'})
 
 
 def delete_post(request,content_id):

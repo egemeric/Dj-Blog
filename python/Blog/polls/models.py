@@ -9,7 +9,7 @@ class Comment(models.Model):
     Pub_date = models.DateTimeField('date published', auto_now_add=True)
     Emb_html = models.CharField(max_length=2024, null=True, blank=True)
     Content = models.TextField(default='Empty')
-    File = models.FileField(upload_to='media/uploads/', default='media/None/', null=True, blank=True)
+    File = models.FileField(upload_to='media/uploads/',  null=True, blank=True)
     Image = models.ImageField(upload_to='media/pic_folder', default='media/None/no-img.jpg')
     Ip_log = models.GenericIPAddressField(null=True)
     User_agent = models.CharField(max_length=200,null=True)
