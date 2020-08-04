@@ -1,4 +1,4 @@
-# Abaout Dj-Blog
+# About Dj-Blog
 I have tried to bulid a mini web content management system while my internship continues
 It uses Python Django framework. And also, to understand RestApi system I have tried to use DjangoRestapi Framework
 # Here is the some screenshots from web-app
